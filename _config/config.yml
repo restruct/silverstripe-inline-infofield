@@ -1,0 +1,9 @@
+---
+name: infofield
+---
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_javascript:
+    - 'restruct/silverstripe-inline-infofield:client/dist/js/InlineInfoField.js'
+  extra_requirements_css:
+    - 'restruct/silverstripe-inline-infofield:client/dist/css/InlineInfoField.css'

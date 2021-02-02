@@ -1,0 +1,27 @@
+{
+  "name": "restruct/silverstripe-inline-infofield",
+  "description": "Drop-in configurable notice about cookies",
+  "type": "silverstripe-module",
+  "homepage": "http://github.com/restruct/silverstripe-inline-infofield",
+
+  "keywords": [
+    "silverstripe",
+    "cookies"
+  ],
+  "authors": [
+    {
+      "name": "micschk"
+    }
+  ],
+  "require": {
+    "silverstripe/framework": "^4.4"
+  },
+  "extra": {
+    "expose": [
+      "client/dist/js",
+      "client/dist/css",
+      "client/images"
+    ],
+    "installer-name": "inline-infofield"
+  }
+}
