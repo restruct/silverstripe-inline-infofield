@@ -1,9 +1,8 @@
 {
   "name": "restruct/silverstripe-inline-infofield",
   "description": "Drop-in configurable notice about cookies",
-  "type": "silverstripe-module",
+  "type": "silverstripe-vendormodule",
   "homepage": "http://github.com/restruct/silverstripe-inline-infofield",
-
   "keywords": [
     "silverstripe",
     "cookies"
