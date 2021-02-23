@@ -1,5 +1,5 @@
 /* for InfoField */
-.message.info { 
+.message.info {
 	background-image: url('../../images/info-icon.png');
 	background-repeat: no-repeat;
 	background-position: 7px 7px;
@@ -11,8 +11,8 @@
 }
 h2 + .message.info { margin-top: -10px !important; }
 .message.info:first-child { margin-top: 0 !important; }
-.message.info.small,
-.message.info.margin-left { 
+/*.message.info.small,*/
+.message.info.margin-left {
 	margin: 4px 0 4px 184px !important;
 	max-width: 473px;
 }
@@ -23,7 +23,7 @@ label.has-inline-infofield {
 }
 .message.info.small.inline-info {
 	position: absolute;
-	min-height: 16px;
+	min-height: 26px;
 	margin-left: 0 !important;
 	padding: 4px 0px 4px 24px;
 	background-position: 4px 4px;
@@ -31,15 +31,15 @@ label.has-inline-infofield {
 	cursor: pointer;
 	z-index: 100;
 }
-.message.inline-info span { 
+.message.inline-info span {
 	display: none;
 	padding: 2px 10px 2px 2px;
 }
 .message.inline-info.show span { display: block; }
 .message.inline-info.show {
-	-moz-box-shadow: 0px 0px 10px 0px #ccc; 
-	-webkit-box-shadow: 0px 0px 10px 0px #ccc; 
-	box-shadow: 0px 0px 10px 0px #ccc; 
+	-moz-box-shadow: 0px 0px 10px 0px #ccc;
+	-webkit-box-shadow: 0px 0px 10px 0px #ccc;
+	box-shadow: 0px 0px 10px 0px #ccc;
 }
 
 /*.helpField {
