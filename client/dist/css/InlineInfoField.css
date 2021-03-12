@@ -1,45 +1,75 @@
 /* for InfoField */
 .message.info {
-	background-image: url('../../images/info-icon.png');
-	background-repeat: no-repeat;
-	background-position: 7px 7px;
-	background-size: 16px;
-	padding: 7px 7px 7px 30px;
-	border-color: #6ebcea; background-color: #eefef3; font-size: 110%;
-	max-width: 656px;
-	margin: 10px 0 !important;
+    background-image: url('../../images/info-icon.png');
+    background-repeat: no-repeat;
+    background-position: 7px 7px;
+    background-size: 16px;
+    padding: 7px 7px 7px 30px;
+    border-color: #6ebcea;
+    background-color: #eefef3;
+    font-size: 110%;
+    max-width: 656px;
+    margin: 10px 0 !important;
 }
-h2 + .message.info { margin-top: -10px !important; }
-.message.info:first-child { margin-top: 0 !important; }
+
+h2 + .message.info {
+    margin-top: -10px !important;
+}
+
+.message.info:first-child {
+    margin-top: 0 !important;
+}
+
 /*.message.info.small,*/
 .message.info.margin-left {
-	margin: 4px 0 4px 184px !important;
-	max-width: 473px;
+    margin: 4px 0 4px 184px !important;
+    max-width: 473px;
 }
 
 /* inline infofields */
 label.has-inline-infofield {
-	min-height: 30px;
+    min-height: 30px;
 }
+
 .message.info.small.inline-info {
-	position: absolute;
-	min-height: 26px;
-	margin-left: 0 !important;
-	padding: 4px 0px 4px 24px;
-	background-position: 4px 4px;
-	font-size: 100%;
-	cursor: pointer;
-	z-index: 100;
+    position: absolute;
+    min-height: 26px;
+    margin-left: 0 !important;
+    padding: 4px 0px 4px 24px;
+    background-position: 4px 4px;
+    font-size: 100%;
+    cursor: pointer;
+    z-index: 100;
 }
+
+@media (max-width: 992px) {
+    label.has-inline-infofield {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+    }
+
+    .message.info.small.inline-info {
+        position: relative;
+        margin-bottom: 0 !important;
+        line-height: 1;
+        margin-left: 10px !important;
+    }
+}
+
 .message.inline-info span {
-	display: none;
-	padding: 2px 10px 2px 2px;
+    display: none;
+    padding: 2px 10px 2px 2px;
 }
-.message.inline-info.show span { display: block; }
+
+.message.inline-info.show span {
+    display: block;
+}
+
 .message.inline-info.show {
-	-moz-box-shadow: 0px 0px 10px 0px #ccc;
-	-webkit-box-shadow: 0px 0px 10px 0px #ccc;
-	box-shadow: 0px 0px 10px 0px #ccc;
+    -moz-box-shadow: 0px 0px 10px 0px #ccc;
+    -webkit-box-shadow: 0px 0px 10px 0px #ccc;
+    box-shadow: 0px 0px 10px 0px #ccc;
 }
 
 /*.helpField {
