@@ -3,13 +3,19 @@
 		$("span.inline-info").entwine({
 			onadd: function() {
 				var self = this;
+				let preName = '#Form_EditForm_';
 				// move to correct element
 				if(!$(this).hasClass('processed')){
 					// at around 3.3 IDs changed
 					var $label_el = $('#'+$(this).attr('data-target'));
+					var $label_el = $('#Form_EditForm_'+ $(this).attr('data-target') +'_Holder');
+
+
 					if(!$label_el.length){
-						$label_el = $('[id$="'+$(this).attr('data-target')+'_Holder"]');
+						$label_el = $('[id$="Form_EditForm_'+$(this).attr('data-target')+'_Holder"]');
+
 					}
+					console.log($label_el);
 					$(this).addClass('processed')
 						.appendTo(
 							$label_el
@@ -40,8 +46,8 @@
 
 ////(function($) {
 //	$('.helpFieldSeed').livequery(function() {
-//		
-//		
+//
+//
 //		$('#'+targetID+'_HelpFieldButton').click(function() {
 //			var box = $('#'+targetID+'_HelpField');
 //			if (box.hasClass('open')) {
@@ -53,6 +59,6 @@
 //			}
 //			return false;
 //		});
-//		
+//
 //	});
 //})(jQuery);
