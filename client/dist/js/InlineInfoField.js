@@ -15,7 +15,7 @@
 						$label_el = $('[id$="Form_EditForm_'+$(this).attr('data-target')+'_Holder"]');
 
 					}
-					console.log($label_el);
+					
 					$(this).addClass('processed')
 						.appendTo(
 							$label_el
