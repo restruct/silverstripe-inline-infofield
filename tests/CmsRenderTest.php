@@ -48,7 +48,10 @@ class CmsRenderTest extends FunctionalTest
         $page->write();
 
         $this->logInWithPermission('ADMIN');
-        $response = $this->get($page->CMSEditLink());
+        # getCMSEditLink() is the SS6 name (CMSEditLink() is deprecated there); SS5 pages have
+        # only CMSEditLink()
+        $editLink = method_exists($page, 'getCMSEditLink') ? $page->getCMSEditLink() : $page->CMSEditLink();
+        $response = $this->get($editLink);
 
         $this->assertSame(200, $response->getStatusCode());
         $body = $response->getBody();
