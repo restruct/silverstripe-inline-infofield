@@ -1,23 +1,52 @@
 {
   "name": "restruct/silverstripe-inline-infofield",
-  "description": "Drop-in configurable notice about cookies",
+  "description": "CMS form fields for help text: InfoField (a styled info box) and InlineInfoField (an info icon next to another field's label that shows its text on hover or tap)",
   "type": "silverstripe-vendormodule",
-  "homepage": "http://github.com/restruct/silverstripe-inline-infofield",
+  "homepage": "https://github.com/restruct/silverstripe-inline-infofield",
   "keywords": [
     "silverstripe",
-    "cookies"
+    "cms",
+    "forms",
+    "help",
+    "info"
   ],
   "authors": [ { "name": "Restruct", "email": "dev@restruct.nl", "homepage": "https://restruct.nl" } ],
   "require": {
-    "silverstripe/vendor-plugin": "^1.0",
-    "silverstripe/framework": "^4.4"
+    "php": "^8.1",
+    "silverstripe/vendor-plugin": "^2 || ^3",
+    "silverstripe/framework": "^5 || ^6",
+    "silverstripe/admin": "^2 || ^3"
+  },
+  "require-dev": {
+    "silverstripe/recipe-testing": "^3 || ^4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Restruct\\InfoField\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Restruct\\InfoField\\Tests\\": "tests/"
+    }
   },
   "extra": {
     "expose": [
       "client/dist/js",
       "client/dist/css",
       "client/images"
-    ],
-    "installer-name": "inline-infofield"
-  }
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "silverstripe/vendor-plugin": true
+    }
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/restruct"
+    }
+  ]
 }
