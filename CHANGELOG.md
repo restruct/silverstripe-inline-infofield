@@ -29,9 +29,15 @@ Silverstripe 5 and 6. Silverstripe 4 is dropped, which is why this is a major re
 - README: what the module does (the previous text described a different field), requirements,
   installation, a version compatibility table, usage of both fields, the assets it loads and where
   the inline field works.
-- MIT licence (`LICENSE`, and `license` in `composer.json`); previously no licence was declared.
+- README credits nathancox/silverstripe-helpfield, which `InlineInfoField` is derived from (the
+  2.0 README credited it; 2.1 dropped the credit).
 - `funding` and PSR-4 `autoload` in `composer.json`. Its description and keywords described a
   cookie notice and are corrected.
+
+### Licence
+
+- Still no licence declared, as in every `2.x` release: there is no `LICENSE` file and no
+  `license` key in `composer.json`.
 
 ### Issues
 

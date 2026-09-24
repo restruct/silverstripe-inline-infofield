@@ -141,7 +141,14 @@ CMS page edit form. It does not run the script in a browser.
 
 CI runs the same suite against Silverstripe 5 and 6 on every push; see `.github/workflows/ci.yml`.
 
+Credits
+-------
+
+`InlineInfoField` is derived from
+[nathancox/silverstripe-helpfield](https://github.com/nathancox/silverstripe-helpfield) by Nathan
+Cox, which the 2.0 README credited.
+
 License
 -------
 
-MIT, see [LICENSE](LICENSE).
+No licence is declared, as in every `2.x` release.
