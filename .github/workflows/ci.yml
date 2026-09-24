@@ -162,25 +162,20 @@ jobs:
         # must be a `flush=1` argument AFTER a path: `--testsuite <name> flush=1` silently does
         # not flush, so the suites are addressed by their directories there.
         #
-        # The module suite's output is kept and its test count checked: a suite that loses tests
-        # (a file the manifest no longer finds, a class that silently stops loading) still ends
-        # in OK, so "green" alone does not prove the tests ran. Update EXPECTED_TESTS when tests
-        # are added or removed. On SS6 --fail-on-empty-test-suite also fails a suite that ran
-        # nothing (PHPUnit 9 on SS5 has no such option; the count check covers it there).
+        # Every suite runs with --fail-on-empty-test-suite (PHPUnit 9.6 on SS5 accepts it too, it is
+        # only missing from its --help), so a suite that silently ran nothing (a file the manifest
+        # no longer finds, a broken consumer-test heredoc) fails instead of ending green.
+        # Not a grep for "OK (N tests": PHPUnit exits 0 with "OK, but there were issues!" or
+        # "OK, but some tests were skipped!", so such a count guard turns a passing suite red on
+        # the first upstream deprecation notice.
         run: |
-          set -o pipefail
-          EXPECTED_TESTS=21
           if [ "${{ matrix.silverstripe }}" = "6" ]; then
-            vendor/bin/phpunit --fail-on-empty-test-suite --testsuite infofield | tee module-tests.log
+            vendor/bin/phpunit --fail-on-empty-test-suite --testsuite infofield
             vendor/bin/phpunit --fail-on-empty-test-suite --testsuite consumer
           else
-            vendor/bin/phpunit vendor/restruct/silverstripe-inline-infofield/tests flush=1 | tee module-tests.log
-            vendor/bin/phpunit app/tests flush=1
+            vendor/bin/phpunit --fail-on-empty-test-suite vendor/restruct/silverstripe-inline-infofield/tests flush=1
+            vendor/bin/phpunit --fail-on-empty-test-suite app/tests flush=1
           fi
-          grep -q "^OK (${EXPECTED_TESTS} tests," module-tests.log || {
-            echo "::error::Expected 'OK (${EXPECTED_TESTS} tests, ...)' from the module suite"
-            exit 1
-          }
 
       - name: Boot the app and build the database
         # The suite proves the classes behave; this proves the module does not break a real boot
