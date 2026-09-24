@@ -107,25 +107,16 @@ jobs:
           composer update --no-interaction --no-progress
 
       - name: Configure the test suite
+        # The module's own phpunit.xml.dist is the single copy of the runner settings (bootstrap,
+        # failOnWarning pinned because warning-to-error escalation differs between PHPUnit 9 on
+        # SS5 and 11 on SS6). CI copies it and appends only the consumer suite, so a settings
+        # change cannot drift between the two.
         run: |
           cd app-host
-          cat > phpunit.xml <<'XML'
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!-- Warning-to-error escalation is the RUNNER's behaviour and differs by PHPUnit
-               major: 9 (SS5) converts warnings by default, 11 (SS6) has no such attribute.
-               failOnWarning is pinned so a warning behaves identically on every leg. -->
-          <phpunit bootstrap="vendor/silverstripe/framework/tests/bootstrap.php" colors="true"
-                   failOnWarning="true">
-              <testsuites>
-                  <testsuite name="infofield">
-                      <directory>vendor/restruct/silverstripe-inline-infofield/tests</directory>
-                  </testsuite>
-                  <testsuite name="consumer">
-                      <directory>app/tests</directory>
-                  </testsuite>
-              </testsuites>
-          </phpunit>
-          XML
+          cp ../module/phpunit.xml.dist phpunit.xml
+          perl -0pi -e 's#(\s*)</testsuites>#$1    <testsuite name="consumer">$1        <directory>app/tests</directory>$1    </testsuite>$1</testsuites>#' phpunit.xml
+          grep -q '<testsuite name="consumer">' phpunit.xml
+          cat phpunit.xml
 
       - name: Add a consumer-shape database test
         # A module's own suite cannot catch a test fixture that breaks CONSUMING projects: its
@@ -170,14 +161,26 @@ jobs:
         # Flush on every run, or a stale test manifest reads as a broken test. On SS5 the flush
         # must be a `flush=1` argument AFTER a path: `--testsuite <name> flush=1` silently does
         # not flush, so the suites are addressed by their directories there.
+        #
+        # The module suite's output is kept and its test count checked: a suite that loses tests
+        # (a file the manifest no longer finds, a class that silently stops loading) still ends
+        # in OK, so "green" alone does not prove the tests ran. Update EXPECTED_TESTS when tests
+        # are added or removed. On SS6 --fail-on-empty-test-suite also fails a suite that ran
+        # nothing (PHPUnit 9 on SS5 has no such option; the count check covers it there).
         run: |
+          set -o pipefail
+          EXPECTED_TESTS=21
           if [ "${{ matrix.silverstripe }}" = "6" ]; then
-            vendor/bin/phpunit --testsuite infofield
-            vendor/bin/phpunit --testsuite consumer
+            vendor/bin/phpunit --fail-on-empty-test-suite --testsuite infofield | tee module-tests.log
+            vendor/bin/phpunit --fail-on-empty-test-suite --testsuite consumer
           else
-            vendor/bin/phpunit vendor/restruct/silverstripe-inline-infofield/tests flush=1
+            vendor/bin/phpunit vendor/restruct/silverstripe-inline-infofield/tests flush=1 | tee module-tests.log
             vendor/bin/phpunit app/tests flush=1
           fi
+          grep -q "^OK (${EXPECTED_TESTS} tests," module-tests.log || {
+            echo "::error::Expected 'OK (${EXPECTED_TESTS} tests, ...)' from the module suite"
+            exit 1
+          }
 
       - name: Boot the app and build the database
         # The suite proves the classes behave; this proves the module does not break a real boot
