@@ -21,18 +21,23 @@ namespace Restruct\InfoField {
 
         public function FieldHolder($properties = [])
         {
-            if ( is_object($this->content) ) {
-                $obj = $this->content;
+            # Object content (eg. a DBHTMLText from DBField::create_field() or renderWith()) is
+            # rendered first and then boxed like string content. It used to be returned bare, as
+            # LiteralField does, so the info box this class exists for silently went missing.
+            $content = $this->content;
+            if ( is_object($content) ) {
+                $obj = $content;
                 if ( $properties )
                     $obj = $obj->customise($properties);
 
-                return $obj->forTemplate();
+//                return $obj->forTemplate();
+                $content = $obj->forTemplate();
             }
 
             $classes = '';
             if ( $this->extraClasses ) $classes = implode(' ', $this->extraClasses);
 
-            return "<div class=\"message info $classes\">" . $this->content . '</div>';
+            return "<div class=\"message info $classes\">" . $content . '</div>';
         }
 
     }
