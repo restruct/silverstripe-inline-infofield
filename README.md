@@ -17,8 +17,8 @@ Requirements
 
 * Silverstripe 5 or 6 (`silverstripe/framework`)
 * PHP 8.1 or newer
-* The CMS admin (`silverstripe/admin`) for the styling and the inline behaviour: the module's script
-  and stylesheet are loaded on CMS screens only (see [Assets](#assets)).
+* The CMS admin (`silverstripe/admin` 2 or 3, required): the module configures `LeftAndMain` and
+  its script and stylesheet are loaded on CMS screens only (see [Assets](#assets)).
 
 Installation
 ------------

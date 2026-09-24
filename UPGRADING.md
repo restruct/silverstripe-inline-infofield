@@ -11,6 +11,8 @@ On Silverstripe 5 and 6, change your constraint to `^3`:
 composer require restruct/silverstripe-inline-infofield:^3
 ```
 
+3.0 requires `silverstripe/admin` (`^2 || ^3`), which every CMS project already has.
+
 Class names, the namespace (`Restruct\InfoField`), constructor arguments, the rendered markup and
 the CMS config are unchanged. Nothing to edit in `_config` or templates.
 

@@ -10,6 +10,9 @@ Silverstripe 5 and 6. Silverstripe 4 is dropped, which is why this is a major re
 - **Silverstripe 4 is no longer supported.** `silverstripe/framework` is now `^5 || ^6` (was
   `^4.4`), `silverstripe/vendor-plugin` `^2 || ^3` (was `^1.0`), and PHP `^8.1` (was not declared).
   Silverstripe 4 projects keep resolving the `2.x` tags.
+- **`silverstripe/admin` (`^2 || ^3`) is now required.** The module's config targets `LeftAndMain`
+  and both fields exist for CMS forms; it was used but not declared. A framework-only project
+  now pulls in the admin.
 - **`InfoField` now boxes object content too.** Content passed as an object (for example a
   `DBHTMLText` from `DBField::create_field()` or `renderWith()`) used to be output bare, without the
   info box; it is now wrapped in the same `div.message.info` as string content. If you relied on
