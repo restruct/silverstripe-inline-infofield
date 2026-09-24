@@ -17,9 +17,22 @@ class CmsRenderTest extends FunctionalTest
 {
     protected $usesDatabase = true;
 
-    protected static $extra_dataobjects = [
-        InfoTestPage::class,
-    ];
+    # Filled in setUpBeforeClass() only when the CMS is installed. Declared statically, the stub
+    # page is built into the temp database in parent::setUpBeforeClass(), before setUp() can skip:
+    # without silverstripe/cms the stub class does not exist and the table build errors instead of
+    # the test being skipped.
+    protected static $extra_dataobjects = [];
+
+    public static function setUpBeforeClass(): void
+    {
+        if (class_exists(SiteTree::class)) {
+            static::$extra_dataobjects = [
+                InfoTestPage::class,
+            ];
+        }
+
+        parent::setUpBeforeClass();
+    }
 
     protected function setUp(): void
     {
