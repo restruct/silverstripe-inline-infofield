@@ -1,6 +1,7 @@
 {
   "name": "restruct/silverstripe-inline-infofield",
   "description": "CMS form fields for help text: InfoField (a styled info box) and InlineInfoField (an info icon next to another field's label that shows its text on hover or tap)",
+  "license": "MIT",
   "type": "silverstripe-vendormodule",
   "homepage": "https://github.com/restruct/silverstripe-inline-infofield",
   "keywords": [

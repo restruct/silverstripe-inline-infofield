@@ -151,4 +151,4 @@ Cox, which the 2.0 README credited.
 License
 -------
 
-No licence is declared, as in every `2.x` release.
+MIT, see [LICENSE](LICENSE). Releases before 3.0.1 declared no licence.
