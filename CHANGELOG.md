@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.1 (2026-09-25)
+
+### Licence
+
+- Licensed under MIT: adds a `LICENSE` file and the `license` key in `composer.json`. Earlier
+  releases declared no licence.
+
 ## 3.0.0 (2026-09-25)
 
 Silverstripe 5 and 6. Silverstripe 4 is dropped, which is why this is a major release. See
