@@ -7,6 +7,8 @@
     <testsuites>
         <testsuite name="infofield">
             <directory>vendor/restruct/silverstripe-inline-infofield/tests</directory>
+            <!-- Playwright browser tests (TypeScript, own runner, node_modules): not PHPUnit's -->
+            <exclude>vendor/restruct/silverstripe-inline-infofield/tests/browser</exclude>
         </testsuite>
     </testsuites>
 </phpunit>
