@@ -5,6 +5,8 @@ namespace Restruct\IiBrowser;
 use Restruct\InfoField\InfoField;
 use Restruct\InfoField\InlineInfoField;
 use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\ORM\FieldType\DBField;
 
 /**
@@ -22,6 +24,11 @@ class IiBPage extends SiteTree
     private static $table_name = 'IiBPage';
 
     private static $singular_name = 'Info browser page';
+
+    # Edited in a GridField detail form (#3): see IiBRecord.
+    private static $has_many = [
+        'Records' => IiBRecord::class,
+    ];
 
     public function getCMSFields()
     {
@@ -47,6 +54,11 @@ class IiBPage extends SiteTree
         );
         $fields->push(InlineInfoField::create('Title', 'Keep titles <em>short</em>: they are also used in the menu.'));
         $fields->addFieldToTab('Root.Main', InlineInfoField::create('MenuTitle', 'Shown in the navigation.'));
+        # On its own tab, so the Main tab the other specs read is unchanged.
+        $fields->addFieldToTab(
+            'Root.Records',
+            GridField::create('Records', 'Records', $this->Records(), GridFieldConfig_RecordEditor::create())
+        );
 
         return $fields;
     }

@@ -10,6 +10,17 @@
 					var $label_el = $('#'+$(this).attr('data-target'));
 					var $label_el = $('#Form_EditForm_'+ $(this).attr('data-target') +'_Holder');
 
+					// Any form, not just the page editor (#3): a holder id is "<form id>_<field name>_Holder"
+					// (FormTemplateHelper), and a GridField detail form is Form_ItemEditForm. Build the exact
+					// id from the span's own form rather than a suffix match: "_Title_Holder" would also match
+					// a "Sub_Title" field. getElementById, so a field name needs no selector escaping.
+					var $form = $(this).closest('form');
+					if($form.length && $form.attr('id')){
+						var $in_form = $(document.getElementById($form.attr('id') + '_' + $(this).attr('data-target') + '_Holder'));
+						if($in_form.length){
+							$label_el = $in_form;
+						}
+					}
 
 					if(!$label_el.length){
 						$label_el = $('[id$="Form_EditForm_'+$(this).attr('data-target')+'_Holder"]');

@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.2 (unreleased)
+
+### Fixed
+
+- `InlineInfoField`'s icon was not moved next to its target's label in a GridField detail form, or
+  any form other than the page editor: the script only looked for `Form_EditForm_<target>_Holder`.
+  It now looks up `<form id>_<target>_Holder` in the icon's own form first (#3).
+
 ## 3.0.1 (2026-09-25)
 
 ### Licence

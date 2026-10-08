@@ -93,3 +93,27 @@ test.describe('on a touch device', () => {
         expect(await isDisplayed(info.locator('> span'))).toBe(false);
     });
 });
+
+test('in a GridField detail form, the icon is moved into its target\'s label too (#3)', async ({ page }) => {
+    // The detail form is Form_ItemEditForm, not the page editor's Form_EditForm, so the field holders
+    // are Form_ItemEditForm_<name>_Holder.
+    const response = await page.request.get('/admin/iib-reset/reseed', { params: { title: 'Info fields records', record: '1' } });
+    expect(response.status()).toBe(200);
+    const { id, recordId } = await response.json();
+    await page.goto(`/admin/pages/edit/EditForm/${id}/field/Records/item/${recordId}/edit`);
+    const form = page.locator('form#Form_ItemEditForm');
+    await expect(form.locator('input[name="Title"]')).toBeVisible();
+
+    const label = form.locator('#Form_ItemEditForm_Title_Holder label').first();
+    await expect(label.locator('span.inline-info[data-target="Title"]')).toHaveCount(1);
+    await expect(label).toHaveClass(/\bhas-inline-infofield\b/);
+    // Not into Sub_Title, whose holder id also ends in "_Title_Holder".
+    await expect(form.locator('#Form_ItemEditForm_Sub_Title_Holder span.inline-info')).toHaveCount(0);
+    await expect(form.locator('span.inline-info')).toHaveCount(1);
+
+    // And it still works there: hover shows the text.
+    const info = inlineInfo(form, 'Title');
+    await info.hover();
+    await expect(info).toHaveClass(/\bshow\b/);
+    await expect(info.locator('> span em')).toHaveText('title');
+});
